@@ -1,64 +1,64 @@
-import { Card, Drawer, Rate, Switch } from 'antd'
-import { shallow } from 'zustand/shallow'
-import { useBooksStore } from '../stores/books'
-import { useSearchBooks } from '../stores/searchBooks'
-import { CloseIcon } from './Icons/CloseIcon'
+import { Card, Drawer, Rate, Switch } from "antd";
+import { shallow } from "zustand/shallow";
+import { useBooksStore } from "../stores/books";
+import { useSearchBooks } from "../stores/searchBooks";
+import { CloseIcon } from "./Icons/CloseIcon";
 
 export const ReadingList = ({ open, onClose }) => {
-  const { Meta } = Card
+  const { Meta } = Card;
   const addAgainBookToSearchedBooks = useSearchBooks(
-    (state) => state.addAgainBookToSearchedBooks
-  )
+    (state) => state.addAgainBookToSearchedBooks,
+  );
   const [
     readingList,
     removeFromReadingList,
     modifyReadingListWithPriorities,
-    sortReadingListByPriority
+    sortReadingListByPriority,
   ] = useBooksStore(
     (state) => [
       state.readingList,
       state.removeFromReadingList,
       state.modifyReadingListWithPriorities,
-      state.sortReadingListByPriority
+      state.sortReadingListByPriority,
     ],
-    shallow
-  )
+    shallow,
+  );
 
   const onChange = (checked) => {
-    sortReadingListByPriority(checked)
-  }
+    sortReadingListByPriority(checked);
+  };
 
   return (
     <Drawer
-      className='reading-container'
+      className="reading-container"
       title={
-        <div className='drawer-title'>
+        <div className="drawer-title">
           <span>📖</span> Lista de lectura
         </div>
       }
-      placement='right'
+      placement="right"
       onClose={onClose}
       open={open}
-      size='large'
+      size="large"
     >
       {readingList.length === 0 && (
-        <div className='empty-reading-list'>
+        <div className="empty-reading-list">
           <p>Aún no hay libros en la lista de lectura 🥺</p>
         </div>
       )}
       {readingList.length > 1 && (
-        <div className='empty-reading-list'>
-          <span style={{ marginRight: '10px' }}>Ordenar por prioridad </span>
+        <div className="empty-reading-list">
+          <span style={{ marginRight: "10px" }}>Ordenar por prioridad </span>
           <Switch onChange={onChange} />
         </div>
       )}
-      <div className='books-cards'>
+      <div className="books-cards">
         {readingList?.map((book) => {
           return (
-            <div key={book.ISBN} className='reading-card-rate'>
+            <div key={book.ISBN} className="reading-card-rate">
               <Card
                 title={<CloseIcon />}
-                className='book-card'
+                className="book-card"
                 hoverable
                 cover={
                   <img
@@ -67,13 +67,13 @@ export const ReadingList = ({ open, onClose }) => {
                   />
                 }
                 onClick={() => {
-                  removeFromReadingList(book.ISBN)
-                  addAgainBookToSearchedBooks(book.ISBN)
+                  removeFromReadingList(book.ISBN);
+                  addAgainBookToSearchedBooks(book.ISBN);
                 }}
               >
                 <Meta title={book.title} description={book.author.name} />
               </Card>
-              <div className='rate'>
+              <div className="rate">
                 <span>Prioridad</span>
                 <Rate
                   value={book.priority !== null ? book.priority : 0}
@@ -83,9 +83,9 @@ export const ReadingList = ({ open, onClose }) => {
                 />
               </div>
             </div>
-          )
+          );
         })}
       </div>
     </Drawer>
-  )
-}
+  );
+};

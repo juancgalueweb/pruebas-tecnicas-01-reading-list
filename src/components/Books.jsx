@@ -1,22 +1,22 @@
-import { Card, message } from 'antd'
-import { useEffect } from 'react'
-import { shallow } from 'zustand/shallow'
-import { useBooksStore } from '../stores/books'
-import { useSearchBooks } from '../stores/searchBooks'
-import { GenreSelect } from './GenreSelect'
-import { AddIcon } from './Icons/AddIcon'
-import { PageFilter } from './PageFilter'
-import { SearchInput } from './SearchInput'
-import { Stats } from './Stats'
+import { Card, message } from "antd";
+import { useEffect } from "react";
+import { shallow } from "zustand/shallow";
+import { useBooksStore } from "../stores/books";
+import { useSearchBooks } from "../stores/searchBooks";
+import { GenreSelect } from "./GenreSelect";
+import { AddIcon } from "./Icons/AddIcon";
+import { PageFilter } from "./PageFilter";
+import { SearchInput } from "./SearchInput";
+import { Stats } from "./Stats";
 
 export const Books = () => {
-  const [messageApi, contextHolder] = message.useMessage()
-  const { Meta } = Card
-  const search = useSearchBooks((state) => state.search)
-  const searchedBooks = useSearchBooks((state) => state.searchedBooks)
+  const [messageApi, contextHolder] = message.useMessage();
+  const { Meta } = Card;
+  const search = useSearchBooks((state) => state.search);
+  const searchedBooks = useSearchBooks((state) => state.searchedBooks);
   const removeBookFromSearchedBooks = useSearchBooks(
-    (state) => state.removeBookFromSearchedBooks
-  )
+    (state) => state.removeBookFromSearchedBooks,
+  );
   const [
     setBooks,
     setReadingList,
@@ -25,7 +25,7 @@ export const Books = () => {
     minPage,
     sliderValue,
     booksFilter,
-    readingList
+    readingList,
   ] = useBooksStore(
     (state) => [
       state.setBooks,
@@ -35,53 +35,53 @@ export const Books = () => {
       state.minPage,
       state.sliderValue,
       state.booksFilter,
-      state.readingList
+      state.readingList,
     ],
-    shallow
-  )
+    shallow,
+  );
 
   const dataFromLocalStorage = JSON.parse(
-    localStorage.getItem('reading-list-midudev-test')
-  )
+    localStorage.getItem("reading-list-midudev-test"),
+  );
 
   useEffect(() => {
-    booksFilter(selectedCategory, sliderValue)
-  }, [selectedCategory, sliderValue, readingList])
+    booksFilter(selectedCategory, sliderValue);
+  }, [selectedCategory, sliderValue, readingList]);
 
   useEffect(() => {
     const getBooks = async () => {
-      await setBooks()
-    }
+      await setBooks();
+    };
     if (dataFromLocalStorage.state.books.length === 0) {
-      getBooks()
+      getBooks();
     }
-  }, [])
+  }, []);
 
   return (
     <>
       {contextHolder}
-      <div className='books-container'>
-        <div className='books-heading'>
+      <div className="books-container">
+        <div className="books-heading">
           <GenreSelect />
           <PageFilter />
           <SearchInput />
         </div>
         <Stats />
-        {selectedCategory !== 'Todos' && copyBooks?.length === 0 && (
-          <div className='empty-reading-list'>
+        {selectedCategory !== "Todos" && copyBooks?.length === 0 && (
+          <div className="empty-reading-list">
             <p>{`No hay más libros de ${selectedCategory.toLowerCase()} disponibles`}</p>
           </div>
         )}
         {sliderValue <= minPage && (
-          <div className='empty-reading-list'>
+          <div className="empty-reading-list">
             <p>No existen libros para ese filtro de número de páginas </p>
           </div>
         )}
-        <div className='books-cards'>
-          {(search === '' ? copyBooks : searchedBooks)?.map((book) => {
+        <div className="books-cards">
+          {(search === "" ? copyBooks : searchedBooks)?.map((book) => {
             return (
               <Card
-                className='book-card'
+                className="book-card"
                 key={book.ISBN}
                 title={<AddIcon />}
                 hoverable
@@ -92,20 +92,20 @@ export const Books = () => {
                   />
                 }
                 onClick={() => {
-                  setReadingList(book.ISBN)
-                  removeBookFromSearchedBooks(book.ISBN)
+                  setReadingList(book.ISBN);
+                  removeBookFromSearchedBooks(book.ISBN);
                   messageApi.open({
-                    type: 'success',
-                    content: `${book.title} fue agregado a la lista de lectura`
-                  })
+                    type: "success",
+                    content: `${book.title} fue agregado a la lista de lectura`,
+                  });
                 }}
               >
                 <Meta title={book?.title} description={book?.author?.name} />
               </Card>
-            )
+            );
           })}
         </div>
       </div>
     </>
-  )
-}
+  );
+};
