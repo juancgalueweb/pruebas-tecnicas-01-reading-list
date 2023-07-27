@@ -40,9 +40,9 @@ export const Books = () => {
     shallow
   )
 
-  // const dataFromLocalStorage = JSON.parse(
-  //   localStorage.getItem("reading-list-midudev-test"),
-  // );
+  const dataFromLocalStorage = JSON.parse(
+    localStorage.getItem('reading-list-midudev-test')
+  )
 
   useEffect(() => {
     booksFilter(selectedCategory, sliderValue)
@@ -52,9 +52,9 @@ export const Books = () => {
     const getBooks = async () => {
       await setBooks()
     }
-    // if (dataFromLocalStorage.state.books.length === 0) {
-    getBooks()
-    // }
+    if (dataFromLocalStorage.state.books.length === 0) {
+      getBooks()
+    }
   }, [])
 
   return (
