@@ -1,6 +1,9 @@
 # Mac
 .DS_Store
 
+#Vite Build
+dist
+
 # Logs
 logs
 *.log

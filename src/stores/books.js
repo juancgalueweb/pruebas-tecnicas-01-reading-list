@@ -1,5 +1,10 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { IS_DEVELOPMENT } from '../../config'
+
+const fetchUrl = IS_DEVELOPMENT
+  ? import.meta.env.VITE_DEVELOPMENT_URL
+  : import.meta.env.VITE_DEVELOPMENT_PRODUCTION
 
 export const useBooksStore = create(
   persist(
@@ -15,7 +20,7 @@ export const useBooksStore = create(
       sliderValue: null,
       setBooks: async () => {
         try {
-          const response = await fetch('./src/data/books.json')
+          const response = await fetch(fetchUrl)
           if (!response.ok) throw new Error('Fallo al cargar la data')
           const jsonData = await response.json()
           const { library } = jsonData
