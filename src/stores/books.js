@@ -1,12 +1,9 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { IS_DEVELOPMENT } from "../../config";
 
-const fetchUrl = IS_DEVELOPMENT
-  ? import.meta.env.VITE_DEVELOPMENT_URL
-  : import.meta.env.VITE_DEVELOPMENT_PRODUCTION;
-
-console.log("Veamos la url", fetchUrl);
+const fetchUrl = import.meta.env.PROD
+  ? "https://pruebas-tecnicas-01-reading-list-git-main-juancgalueweb.vercel.app/"
+  : "http://localhost:5173/";
 
 export const useBooksStore = create(
   persist(
