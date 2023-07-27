@@ -1,11 +1,11 @@
-import { Select } from "antd";
-import { useEffect } from "react";
-import { shallow } from "zustand/shallow";
-import { useBooksStore } from "../stores/books";
-import { useSearchBooks } from "../stores/searchBooks";
+import { Select } from 'antd'
+import { useEffect } from 'react'
+import { shallow } from 'zustand/shallow'
+import { useBooksStore } from '../stores/books'
+import { useSearchBooks } from '../stores/searchBooks'
 
 export const GenreSelect = () => {
-  const search = useSearchBooks((state) => state.search);
+  const search = useSearchBooks((state) => state.search)
   const [
     books,
     categories,
@@ -13,7 +13,7 @@ export const GenreSelect = () => {
     booksFilter,
     setSelectedCategory,
     selectedCategory,
-    sliderValue,
+    sliderValue
   ] = useBooksStore(
     (state) => [
       state.books,
@@ -22,29 +22,29 @@ export const GenreSelect = () => {
       state.booksFilter,
       state.setSelectedCategory,
       state.selectedCategory,
-      state.sliderValue,
+      state.sliderValue
     ],
-    shallow,
-  );
+    shallow
+  )
 
   const handleChange = (value) => {
-    setSelectedCategory(value);
-    booksFilter(value, sliderValue);
-  };
+    setSelectedCategory(value)
+    booksFilter(value, sliderValue)
+  }
 
   useEffect(() => {
-    setCategories();
-  }, [books]);
+    setCategories()
+  }, [books])
 
   return (
     <Select
-      disabled={search !== "" && true}
+      disabled={search !== '' && true}
       defaultValue={selectedCategory}
-      style={{ width: 150, textAlign: "left" }}
+      style={{ width: 150, textAlign: 'left' }}
       onChange={handleChange}
       options={categories.map((cat) => {
-        return { value: cat, label: cat };
+        return { value: cat, label: cat }
       })}
     />
-  );
-};
+  )
+}

@@ -1,17 +1,17 @@
-import { Layout } from "antd";
-import { AntDesignIcon } from "./Icons/AntDesignIcon";
-import { ReactIcon } from "./Icons/ReactIcon";
-import { ViteIcon } from "./Icons/ViteIcon";
-import { ZustandIcon } from "./Icons/ZustandIcon";
+import { Layout } from 'antd'
+import { AntDesignIcon } from './Icons/AntDesignIcon'
+import { ReactIcon } from './Icons/ReactIcon'
+import { ViteIcon } from './Icons/ViteIcon'
+import { ZustandIcon } from './Icons/ZustandIcon'
 
 export const HeaderApp = () => {
-  const { Header } = Layout;
+  const { Header } = Layout
 
   return (
-    <Header className="header-style">
-      <div className="header-content">
+    <Header className='header-style'>
+      <div className='header-content'>
         <div>📚 Aplicación de lista de libros</div>
-        <div className="icons">
+        <div className='icons'>
           <ReactIcon />
           <ViteIcon />
           <AntDesignIcon />
@@ -19,5 +19,5 @@ export const HeaderApp = () => {
         </div>
       </div>
     </Header>
-  );
-};
+  )
+}

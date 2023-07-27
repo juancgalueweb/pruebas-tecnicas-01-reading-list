@@ -1,18 +1,18 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 export const useDrawer = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   const showDrawer = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const onClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
   return {
     open,
     showDrawer,
-    onClose,
-  };
-};
+    onClose
+  }
+}
