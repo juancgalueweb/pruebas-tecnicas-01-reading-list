@@ -55,33 +55,30 @@ export const ReadingList = ({ open, onClose }) => {
       )}
       <div className='books-cards'>
         {readingList?.map((book) => {
+          const { ISBN, genre, title, cover, priority } = book
+          const { name } = book.author
           return (
-            <div key={book.ISBN} className='reading-card-rate'>
-              <Badge.Ribbon text={book?.genre} color={ribbonColor(book?.genre)}>
+            <div key={ISBN} className='reading-card-rate'>
+              <Badge.Ribbon text={genre} color={ribbonColor(genre)}>
                 <Card
                   title={<CloseIcon />}
                   className='book-card'
                   hoverable
-                  cover={
-                    <img
-                      alt={`Imagel del libro ${book.title}`}
-                      src={book.cover}
-                    />
-                  }
+                  cover={<img alt={`Imagel del libro ${title}`} src={cover} />}
                   onClick={() => {
-                    removeFromReadingList(book.ISBN)
-                    addAgainBookToSearchedBooks(book.ISBN)
+                    removeFromReadingList(ISBN)
+                    addAgainBookToSearchedBooks(ISBN)
                   }}
                 >
-                  <Meta title={book.title} description={book.author.name} />
+                  <Meta title={title} description={name} />
                 </Card>
               </Badge.Ribbon>
               <div className='rate'>
                 <span>Prioridad</span>
                 <Rate
-                  value={book.priority !== null ? book.priority : 0}
+                  value={priority !== null ? priority : 0}
                   onChange={(value) =>
-                    modifyReadingListWithPriorities(value, book.ISBN)
+                    modifyReadingListWithPriorities(value, ISBN)
                   }
                 />
               </div>

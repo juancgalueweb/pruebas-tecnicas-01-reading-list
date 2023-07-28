@@ -81,39 +81,33 @@ export const Books = () => {
         )}
         <div className='books-cards'>
           {(search === '' ? copyBooks : searchedBooks)?.map((book) => {
+            const { ISBN, genre, title, cover, synopsis, year } = book
+            const { otherBooks, name } = book.author
             return (
-              <Badge.Ribbon
-                key={book.ISBN}
-                text={book?.genre}
-                color={ribbonColor(book?.genre)}
-              >
+              <Badge.Ribbon key={ISBN} text={genre} color={ribbonColor(genre)}>
                 <Card
                   className='book-card'
                   title={<AddIcon />}
                   hoverable
-                  cover={
-                    <img
-                      alt={`Imagel del libro ${book?.title}`}
-                      src={book?.cover}
-                    />
-                  }
+                  cover={<img alt={`Imagel del libro ${title}`} src={cover} />}
                   actions={[
                     <MoreInfo
-                      synopsis={book?.synopsis}
-                      year={book?.year}
-                      key={book?.ISBN}
+                      synopsis={synopsis}
+                      year={year}
+                      key={ISBN}
+                      otherBooks={otherBooks}
                     />
                   ]}
                   onClick={() => {
-                    setReadingList(book.ISBN)
-                    removeBookFromSearchedBooks(book.ISBN)
+                    setReadingList(ISBN)
+                    removeBookFromSearchedBooks(ISBN)
                     messageApi.open({
                       type: 'success',
-                      content: `${book.title} fue agregado a la lista de lectura`
+                      content: `${title} fue agregado a la lista de lectura`
                     })
                   }}
                 >
-                  <Meta title={book?.title} description={book?.author?.name} />
+                  <Meta title={title} description={name} />
                 </Card>
               </Badge.Ribbon>
             )
