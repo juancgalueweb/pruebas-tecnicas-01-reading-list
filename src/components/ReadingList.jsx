@@ -3,6 +3,7 @@ import { shallow } from 'zustand/shallow'
 import { ribbonColor } from '../services/ribbonColor'
 import { useBooksStore } from '../stores/books'
 import { useSearchBooks } from '../stores/searchBooks'
+import { FadeInSection } from './FadeInSection'
 import { CloseIcon } from './Icons/CloseIcon'
 
 export const ReadingList = ({ open, onClose }) => {
@@ -58,31 +59,35 @@ export const ReadingList = ({ open, onClose }) => {
           const { ISBN, genre, title, cover, priority } = book
           const { name } = book.author
           return (
-            <div key={ISBN} className='reading-card-rate'>
-              <Badge.Ribbon text={genre} color={ribbonColor(genre)}>
-                <Card
-                  title={<CloseIcon />}
-                  className='book-card'
-                  hoverable
-                  cover={<img alt={`Imagel del libro ${title}`} src={cover} />}
-                  onClick={() => {
-                    removeFromReadingList(ISBN)
-                    addAgainBookToSearchedBooks(ISBN)
-                  }}
-                >
-                  <Meta title={title} description={name} />
-                </Card>
-              </Badge.Ribbon>
-              <div className='rate'>
-                <span>Prioridad</span>
-                <Rate
-                  value={priority !== null ? priority : 0}
-                  onChange={(value) =>
-                    modifyReadingListWithPriorities(value, ISBN)
-                  }
-                />
+            <FadeInSection key={ISBN}>
+              <div className='reading-card-rate'>
+                <Badge.Ribbon text={genre} color={ribbonColor(genre)}>
+                  <Card
+                    title={<CloseIcon />}
+                    className='book-card'
+                    hoverable
+                    cover={
+                      <img alt={`Imagel del libro ${title}`} src={cover} />
+                    }
+                    onClick={() => {
+                      removeFromReadingList(ISBN)
+                      addAgainBookToSearchedBooks(ISBN)
+                    }}
+                  >
+                    <Meta title={title} description={name} />
+                  </Card>
+                </Badge.Ribbon>
+                <div className='rate'>
+                  <span>Prioridad</span>
+                  <Rate
+                    value={priority !== null ? priority : 0}
+                    onChange={(value) =>
+                      modifyReadingListWithPriorities(value, ISBN)
+                    }
+                  />
+                </div>
               </div>
-            </div>
+            </FadeInSection>
           )
         })}
       </div>
