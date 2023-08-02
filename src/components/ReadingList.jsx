@@ -1,5 +1,6 @@
 import { Badge, Card, Drawer, Rate, Switch } from 'antd'
 import { shallow } from 'zustand/shallow'
+import { MESSAGES } from '../constants/messages'
 import { ribbonColor } from '../services/ribbonColor'
 import { useBooksStore } from '../stores/books'
 import { useSearchBooks } from '../stores/searchBooks'
@@ -35,7 +36,8 @@ export const ReadingList = ({ open, onClose }) => {
       className='reading-container'
       title={
         <div className='drawer-title'>
-          <span>📖</span> Lista de lectura
+          <span>📖</span>
+          {MESSAGES.READING_LIST_TITLE}
         </div>
       }
       placement='right'
@@ -45,12 +47,14 @@ export const ReadingList = ({ open, onClose }) => {
     >
       {readingList.length === 0 && (
         <div className='empty-reading-list'>
-          <p>Aún no hay libros en la lista de lectura 🥺</p>
+          <p>{MESSAGES.EMPTY_READING_LIST}</p>
         </div>
       )}
       {readingList.length > 1 && (
         <div className='empty-reading-list'>
-          <span style={{ marginRight: '10px' }}>Ordenar por prioridad </span>
+          <span style={{ marginRight: '10px' }}>
+            {MESSAGES.ORDER_BY_PRIORITY}
+          </span>
           <Switch onChange={onChange} />
         </div>
       )}

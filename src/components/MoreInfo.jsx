@@ -1,4 +1,5 @@
 import { Button, Popover, Tag } from 'antd'
+import { MESSAGES } from '../constants/messages'
 
 export const MoreInfo = ({ synopsis, year, otherBooks }) => {
   const renderOtherBooks = () => {
@@ -18,7 +19,7 @@ export const MoreInfo = ({ synopsis, year, otherBooks }) => {
         </>
       )
     }
-    return 'no tiene más libros disponibles'
+    return MESSAGES.AUTHOR_HAS_NO_MORE_BOOKS
   }
 
   const content = (

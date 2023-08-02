@@ -1,6 +1,7 @@
 import { isSupported, share } from 'shared-zustand'
 import { create } from 'zustand'
 import { subscribeWithSelector } from 'zustand/middleware'
+import { BOOKS_CATEGORY } from '../constants/booksCategory'
 import { useBooksStore } from './books'
 
 export const useSearchBooks = create(
@@ -37,12 +38,12 @@ export const useSearchBooks = create(
         (book) => book.ISBN === bookId
       )
       if (bookRemovedFromReadingList) {
-        if (selectedCategory === 'Todos') {
+        if (selectedCategory === BOOKS_CATEGORY.ALL) {
           set({ searchedBooks: [...searchedBooks, bookRemovedFromReadingList] })
           return
         }
         if (
-          selectedCategory !== 'Todos' &&
+          selectedCategory !== BOOKS_CATEGORY.ALL &&
           selectedCategory !== bookRemovedFromReadingList.genre
         ) {
           const filteredSearchedBooks = searchedBooks.filter(

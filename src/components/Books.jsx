@@ -1,9 +1,11 @@
 import { Badge, Card, message } from 'antd'
 import { useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
+import { MESSAGES } from '../constants/messages'
 import { ribbonColor } from '../services/ribbonColor'
 import { useBooksStore } from '../stores/books'
 import { useSearchBooks } from '../stores/searchBooks'
+import { EmptyMsg } from './EmptyMsg'
 import { FadeInSection } from './FadeInSection'
 import { GenreSelect } from './GenreSelect'
 import { AddIcon } from './Icons/AddIcon'
@@ -70,16 +72,6 @@ export const Books = () => {
           <SearchInput />
         </div>
         <Stats />
-        {selectedCategory !== 'Todos' && copyBooks?.length === 0 && (
-          <div className='empty-reading-list'>
-            <p>{`No hay más libros de ${selectedCategory.toLowerCase()} disponibles`}</p>
-          </div>
-        )}
-        {sliderValue <= minPage && (
-          <div className='empty-reading-list'>
-            <p>No existen libros para ese filtro de número de páginas </p>
-          </div>
-        )}
         <div className='books-cards'>
           {(search === '' ? copyBooks : searchedBooks)?.map((book) => {
             const { ISBN, genre, title, cover, synopsis, year } = book
@@ -118,6 +110,12 @@ export const Books = () => {
             )
           })}
         </div>
+        {searchedBooks.length === 0 && copyBooks?.length !== 0 && (
+          <EmptyMsg message={MESSAGES.SEARCH_NO_RESULTS} />
+        )}
+        {sliderValue <= minPage ||
+          (copyBooks?.length === 0 && <EmptyMsg message={MESSAGES.NO_BOOKS} />)}
+        {sliderValue <= minPage && <EmptyMsg message={MESSAGES.NO_BOOKS} />}
       </div>
     </>
   )

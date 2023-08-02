@@ -1,4 +1,5 @@
 import { Badge, Button } from 'antd'
+import { BOOKS_CATEGORY } from '../constants/booksCategory'
 import { useDrawer } from '../hooks/useDrawer'
 import { useBooksStore } from '../stores/books'
 import { ReadingList } from './ReadingList'
@@ -31,7 +32,9 @@ export const Stats = () => {
           Libros por género seleccionado{' '}
           <Badge
             showZero
-            count={selectedCategory === 'Todos' ? 0 : copyBooks?.length}
+            count={
+              selectedCategory === BOOKS_CATEGORY.ALL ? 0 : copyBooks?.length
+            }
             style={{
               fontWeight: 700,
               marginLeft: '6px'

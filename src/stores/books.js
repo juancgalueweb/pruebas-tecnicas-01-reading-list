@@ -1,6 +1,7 @@
 import { isSupported, share } from 'shared-zustand'
 import { create } from 'zustand'
 import { persist, subscribeWithSelector } from 'zustand/middleware'
+import { BOOKS_CATEGORY } from '../constants/booksCategory'
 
 const URL = import.meta.env.PROD
   ? 'https://pruebas-tecnicas-01-reading-list-juancgalueweb.vercel.app/'
@@ -17,7 +18,7 @@ export const useBooksStore = create(
         readingList: [],
         copyReadingList: [],
         categories: [],
-        selectedCategory: 'Todos',
+        selectedCategory: BOOKS_CATEGORY.ALL,
         maxPage: null,
         minPage: null,
         sliderValue: null,
@@ -72,10 +73,13 @@ export const useBooksStore = create(
         setCategories: () => {
           const { books } = get()
           const getCategories = books.map((book) => book.genre)
-          const uniqueCategories = [...new Set(getCategories), 'Todos']
+          const uniqueCategories = [
+            ...new Set(getCategories),
+            BOOKS_CATEGORY.ALL
+          ]
           const sortedCategories = uniqueCategories.sort((a, b) => {
-            if (a === 'Todos') return -1
-            if (b === 'Todos') return 1
+            if (a === BOOKS_CATEGORY.ALL) return -1
+            if (b === BOOKS_CATEGORY.ALL) return 1
             return 0
           })
           set({ categories: sortedCategories })
@@ -94,7 +98,7 @@ export const useBooksStore = create(
           let filteredBooks = getBooksNotInReadingList(books, readingList)
 
           // Filtrar por género si el valor no es 'Todos'
-          if (genre !== 'Todos') {
+          if (genre !== BOOKS_CATEGORY.ALL) {
             filteredBooks = filteredBooks.filter((book) => book.genre === genre)
           }
 

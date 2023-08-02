@@ -207,3 +207,13 @@ body {
   transform: none;
   visibility: visible;
 }
+
+.empty {
+  width: 100vw;
+  display: grid;
+  place-items: center;
+}
+
+.empty-description {
+  font-size: 1.5rem;
+}
