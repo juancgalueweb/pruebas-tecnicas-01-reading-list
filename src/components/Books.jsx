@@ -110,9 +110,9 @@ export const Books = () => {
             )
           })}
         </div>
-        {searchedBooks.length === 0 && copyBooks?.length !== 0 && (
-          <EmptyMsg message={MESSAGES.SEARCH_NO_RESULTS} />
-        )}
+        {searchedBooks.length === 0 &&
+          copyBooks?.length !== 0 &&
+          search !== '' && <EmptyMsg message={MESSAGES.SEARCH_NO_RESULTS} />}
         {sliderValue <= minPage ||
           (copyBooks?.length === 0 && <EmptyMsg message={MESSAGES.NO_BOOKS} />)}
         {sliderValue <= minPage && <EmptyMsg message={MESSAGES.NO_BOOKS} />}
