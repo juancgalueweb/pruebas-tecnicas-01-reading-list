@@ -22,6 +22,7 @@ export const useBooksStore = create(
         maxPage: null,
         minPage: null,
         sliderValue: [],
+        switchStatus: false,
         setBooks: async () => {
           try {
             const response = await fetch(`${URL}/${fileName}`)
@@ -140,7 +141,8 @@ export const useBooksStore = create(
           } else {
             set({ readingList: copyReadingList })
           }
-        }
+        },
+        setSwitchStatus: (checked) => set({ switchStatus: checked })
       }),
       {
         name: 'reading-list-midudev-test'
@@ -155,4 +157,5 @@ if ('BroadcastChannel' in globalThis || isSupported()) {
   share('readingList', useBooksStore)
   share('sliderValue', useBooksStore)
   share('selectedCategory', useBooksStore)
+  share('switchStatus', useBooksStore)
 }

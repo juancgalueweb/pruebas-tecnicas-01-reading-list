@@ -16,19 +16,24 @@ export const ReadingList = ({ open, onClose }) => {
     readingList,
     removeFromReadingList,
     modifyReadingListWithPriorities,
-    sortReadingListByPriority
+    sortReadingListByPriority,
+    setSwitchStatus,
+    switchStatus
   ] = useBooksStore(
     (state) => [
       state.readingList,
       state.removeFromReadingList,
       state.modifyReadingListWithPriorities,
-      state.sortReadingListByPriority
+      state.sortReadingListByPriority,
+      state.setSwitchStatus,
+      state.switchStatus
     ],
     shallow
   )
 
   const onChange = (checked) => {
     sortReadingListByPriority(checked)
+    setSwitchStatus(checked)
   }
 
   return (
@@ -55,7 +60,7 @@ export const ReadingList = ({ open, onClose }) => {
           <span style={{ marginRight: '10px' }}>
             {MESSAGES.ORDER_BY_PRIORITY}
           </span>
-          <Switch onChange={onChange} />
+          <Switch onChange={onChange} checked={switchStatus} />
         </div>
       )}
       <div className='books-cards'>
