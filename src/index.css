@@ -128,11 +128,11 @@ body {
   display: flex;
   justify-content: start;
   align-items: center;
-  width: 400px;
+  width: 480px;
 }
 
 .slider-page p {
-  width: 120px;
+  width: 150px;
   text-align: left;
 }
 
@@ -142,7 +142,7 @@ body {
 }
 
 .slider-component {
-  width: 260px;
+  width: 280px;
 }
 
 .footer-app {
