@@ -7,7 +7,7 @@ export const FooterApp = () => {
       por{' '}
       <a
         className='underline-magical'
-        href='https://github.com/juancgalueweb'
+        href='https://github.com/juancgalueweb/pruebas-tecnicas-01-reading-list'
         target='_blank'
         rel='noreferrer'
       >
