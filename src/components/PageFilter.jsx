@@ -12,8 +12,13 @@ export const PageFilter = () => {
 
   return (
     <div className='slider-page'>
-      <p>N°. de págs.:</p>
+      <p>
+        Págs.: mín.<span>{sliderValue[0]}</span>
+      </p>
       <Slider
+        defaultValue={[0, maxPage]}
+        step={10}
+        range
         disabled={search !== '' && true}
         className='slider-component'
         max={maxPage}
@@ -23,7 +28,9 @@ export const PageFilter = () => {
         }}
         value={sliderValue}
       />
-      <span>{sliderValue}</span>
+      <p style={{ marginLeft: '10px' }}>
+        máx.<span>{sliderValue[1]}</span>
+      </p>
     </div>
   )
 }

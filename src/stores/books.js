@@ -21,7 +21,7 @@ export const useBooksStore = create(
         selectedCategory: BOOKS_CATEGORY.ALL,
         maxPage: null,
         minPage: null,
-        sliderValue: null,
+        sliderValue: [],
         setBooks: async () => {
           try {
             const response = await fetch(`${URL}/${fileName}`)
@@ -35,7 +35,7 @@ export const useBooksStore = create(
             set({ maxPage: Math.max(...booksPages) })
             set({ minPage: Math.min(...booksPages) })
             const { maxPage } = get()
-            set({ sliderValue: maxPage })
+            set({ sliderValue: [0, maxPage] })
           } catch (error) {
             console.log('Error al cargar los libros')
           }
@@ -84,7 +84,8 @@ export const useBooksStore = create(
           })
           set({ categories: sortedCategories })
         },
-        booksFilter: (genre, pageNumber) => {
+        booksFilter: (genre, pagesRange) => {
+          const [minPage, maxPage] = pagesRange
           const { readingList, books } = get()
           // Función para obtener la lista de libros que no están en readingList
           const getBooksNotInReadingList = (books, readingList) => {
@@ -104,7 +105,7 @@ export const useBooksStore = create(
 
           // Filtrar por número de páginas
           filteredBooks = filteredBooks.filter(
-            (book) => book.pages <= pageNumber
+            (book) => minPage <= book.pages && book.pages <= maxPage
           )
 
           set({ copyBooks: filteredBooks })
